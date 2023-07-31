@@ -24,8 +24,19 @@ public class StartUtil {
         }
         return accountList;
     }
+
     public static int generatorMoneyTransferAmount(int maxTransferAmount) {
         Random random = new Random();
         return random.ints(1, (maxTransferAmount + 1)).findFirst().getAsInt();
+    }
+
+    public static int[] generatorTransferPairs(int maxAccounts) {
+        Random random = new Random();
+        int one = random.ints(1, (maxAccounts + 1)).findFirst().getAsInt();
+        int two = random.ints(1, (maxAccounts + 1)).findFirst().getAsInt();
+        if (one == two) {
+            generatorTransferPairs(maxAccounts);
+        }
+        return new int[]{one, two};
     }
 }
