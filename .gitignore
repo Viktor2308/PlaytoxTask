@@ -44,3 +44,7 @@ bin/
 /.idea/
 /build/
 /gradle/
+/.gradle/
+/.idea/
+/build/
+/gradle/
