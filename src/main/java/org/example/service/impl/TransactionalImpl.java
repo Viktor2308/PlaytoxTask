@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 
+import static org.example.util.StartUtil.getTimeThreadSleep;
+
 public class TransactionalImpl implements Transaction {
     private final AccountService accountService;
     private static final Logger log = (Logger) LoggerFactory.getLogger(TransactionalImpl.class);
@@ -31,10 +33,14 @@ public class TransactionalImpl implements Transaction {
             }
 
             moneyTransfer(fromAcc, toAcc, countMoney);
+
+            Thread.sleep(getTimeThreadSleep());
+
             log.info("Transaction complete, from: " + fromAcc.getId() +
                     ", to: " + toAcc.getId() +
                     ", transaction amount" + countMoney +
                     ", threat: " + Thread.currentThread().getName());
+
 
         } catch (MoneyAmountException e) {
             log.warn("Transfer money amount is not correct. Transaction from: " + fromAcc.getId() +
@@ -44,6 +50,12 @@ public class TransactionalImpl implements Transaction {
                     " is canceled!");
         } catch (MoneyLimitException e) {
             log.warn("Not enough money to transfer. Transaction from: " + fromAcc.getId() +
+                    ", to: " + toAcc.getId() +
+                    ", transaction amount" + countMoney +
+                    ", threat: " + Thread.currentThread().getName() +
+                    " is canceled!");
+        } catch (InterruptedException e){
+            log.error("Interrupted exception. Transaction from: " + fromAcc.getId() +
                     ", to: " + toAcc.getId() +
                     ", transaction amount" + countMoney +
                     ", threat: " + Thread.currentThread().getName() +

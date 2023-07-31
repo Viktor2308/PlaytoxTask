@@ -47,4 +47,9 @@ public class StartUtil {
         }
         return sum;
     }
+
+    public static int getTimeThreadSleep(){
+        Random random = new Random();
+        return random.ints(1000, (2000 + 1)).findFirst().getAsInt();
+    }
 }
