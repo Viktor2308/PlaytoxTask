@@ -20,6 +20,13 @@ public class Account {
         log.info("Create new account: {}, money: {}", id, money);
     }
 
+    public void lock(){
+        locker.lock();
+    }
+    public  void unlock(){
+        locker.unlock();
+    }
+
     public String getId() {
         return id;
     }
@@ -27,10 +34,10 @@ public class Account {
     public BigDecimal getMoney() {
         return money;
     }
-
     public void setMoney(BigDecimal money) {
         this.money = money;
     }
+
 
     @Override
     public String toString() {
