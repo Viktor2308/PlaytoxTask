@@ -40,7 +40,6 @@ public class TransactionalImpl implements Transaction {
                     ", transaction amount" + countMoney +
                     ", threat: " + Thread.currentThread().getName());
 
-
         } catch (MoneyAmountException e) {
             log.warn("Transfer money amount is not correct. Transaction from: " + fromAcc.getId() +
                     ", to: " + toAcc.getId() +
@@ -80,8 +79,14 @@ public class TransactionalImpl implements Transaction {
                 toAcc.lock();
                 fromAcc.lock();
             }
-            accountService.decreaseTheBalance(fromAcc, countMoney);
-            accountService.increaseTheBalance(toAcc, countMoney);
+
+            boolean decrease = accountService.decreaseTheBalance(fromAcc, countMoney);
+            boolean increase = accountService.increaseTheBalance(toAcc, countMoney);
+
+            if(decrease && !increase){
+                accountService.increaseTheBalance(fromAcc, countMoney);
+            }
+
         } catch (MoneyLimitException e) {
             log.warn("Not enough money to transfer. Transfer from: " + fromAcc.getId() +
                     ", to: " + toAcc.getId() +

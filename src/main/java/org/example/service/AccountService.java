@@ -7,6 +7,6 @@ import java.math.BigDecimal;
 
 public interface AccountService {
 
-    void increaseTheBalance(Account account, BigDecimal money);
-    void decreaseTheBalance(Account account, BigDecimal money) throws MoneyLimitException;
+    boolean increaseTheBalance(Account account, BigDecimal money);
+    boolean decreaseTheBalance(Account account, BigDecimal money) throws MoneyLimitException;
 }

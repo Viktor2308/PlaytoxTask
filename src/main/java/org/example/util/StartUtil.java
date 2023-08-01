@@ -6,9 +6,11 @@ import org.example.entity.Account;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class StartUtil {
+
+    private static final ThreadLocalRandom random = ThreadLocalRandom.current();
 
     public static String generatorId() {
         int length = 12;
@@ -26,30 +28,28 @@ public class StartUtil {
     }
 
     public static BigDecimal generatorMoneyTransferAmount(int maxTransferAmount) {
-        Random random = new Random();
-        return BigDecimal.valueOf(random.ints(1, (maxTransferAmount + 1)).findFirst().getAsInt());
+        return BigDecimal.valueOf(random.nextInt(1, maxTransferAmount));
     }
 
     public static int[] generatorTransferPairs(int maxAccounts) {
-        Random random = new Random();
-        int one = random.ints(1, (maxAccounts)).findFirst().getAsInt();
-        int two = random.ints(1, (maxAccounts)).findFirst().getAsInt();
-        if (one == two) {
-            generatorTransferPairs(maxAccounts);
+        int one = 0;
+        int two = 0;
+        while (one == two) {
+            one = random.nextInt(1,maxAccounts);
+            two = random.nextInt(1,maxAccounts );
         }
         return new int[]{one, two};
     }
 
-    public static int sumMoneyAllAccounts(List<Account> accounts){
+    public static int sumMoneyAllAccounts(List<Account> accounts) {
         int sum = 0;
-        for(Account account : accounts){
+        for (Account account : accounts) {
             sum += account.getMoney().intValue();
         }
         return sum;
     }
 
-    public static int getTimeThreadSleep(){
-        Random random = new Random();
-        return random.ints(1000, (2000 + 1)).findFirst().getAsInt();
+    public static int getTimeThreadSleep() {
+        return random.nextInt(1000, (2000 + 1));
     }
 }

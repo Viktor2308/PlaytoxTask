@@ -8,7 +8,7 @@ public class Main {
     public static final int START_MONEY = 10000;
     public static final int MAX_TRANSFER_AMOUNT = 10000;
     public static final int COUNT_THREADS = 5;
-    public static final int COUNT_TRANSACTION = 10;
+    public static final int COUNT_TRANSACTION = 30;
 
     public static void main(String[] args) {
 
