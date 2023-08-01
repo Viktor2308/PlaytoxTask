@@ -5,6 +5,7 @@ import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -44,5 +45,16 @@ public class Account {
         return "Account: " + id + ", money: " + money;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return Objects.equals(id, account.id) && Objects.equals(money, account.money);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, money);
+    }
 }

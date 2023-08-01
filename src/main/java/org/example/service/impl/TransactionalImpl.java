@@ -54,7 +54,7 @@ public class TransactionalImpl implements Transaction {
                     ", transaction amount" + countMoney +
                     ", threat: " + Thread.currentThread().getName() +
                     " is canceled!");
-        } catch (InterruptedException e){
+        } catch (InterruptedException e) {
             log.error("Interrupted exception. Transaction from: " + fromAcc.getId() +
                     ", to: " + toAcc.getId() +
                     ", transaction amount" + countMoney +
@@ -69,9 +69,18 @@ public class TransactionalImpl implements Transaction {
                 ", to: " + toAcc.getId() +
                 ", transaction amount" + countMoney +
                 ", threat: " + Thread.currentThread().getName());
+
+        int fromAccHashCod = fromAcc.hashCode();
+        int toAccHashCod = toAcc.hashCode();
+
         try {
-            fromAcc.lock();
-            toAcc.lock();
+            if (fromAccHashCod > toAccHashCod) {
+                fromAcc.lock();
+                toAcc.lock();
+            } else {
+                toAcc.lock();
+                fromAcc.lock();
+            }
             accountService.decreaseTheBalance(fromAcc, countMoney);
             accountService.increaseTheBalance(toAcc, countMoney);
         } catch (MoneyLimitException e) {
