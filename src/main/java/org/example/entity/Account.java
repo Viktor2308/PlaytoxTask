@@ -10,6 +10,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Account {
+
     private final String id;
     private BigDecimal money;
     private final Lock locker;

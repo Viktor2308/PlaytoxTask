@@ -20,7 +20,6 @@ public class TransactionalImpl implements Transaction {
         this.accountService = accountService;
     }
 
-
     @Override
     public void createTransaction(Account fromAcc, Account toAcc, BigDecimal countMoney) {
         log.info("Start new transaction from: " + fromAcc.getId() +

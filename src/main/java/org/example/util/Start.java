@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 import static org.example.util.StartUtil.*;
 
 public class Start {
+
     private final ExecutorService threadPool;
     private final Transaction transaction;
     private static final Logger log = (Logger) LoggerFactory.getLogger(Start.class);
@@ -53,6 +54,5 @@ public class Start {
             Thread.currentThread().interrupt();
         }
         log.info("All money after work app: {}", sumMoneyAllAccounts(accountList));
-
     }
 }
